@@ -94,7 +94,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="connected-user" class="generator-content" style="display: block;">
+					<div id="connected-user" class="generator-content" style="display: none;">
 						<div class="connected-player-wrapper">
 							<div class="connected-player-content animated bounceIn">
 								<div class="connected-player-inner">
@@ -274,7 +274,7 @@
 		const transition2Audio = document.getElementById("transition2-audio");
 		const failAudio = document.getElementById("fail-audio");
 
-		$("#connected-user").hide();
+		// $("#connected-user").hide();
 		let username,
 			followersCount;
 
@@ -332,13 +332,27 @@
 			const $followersCount = parseInt($(e.currentTarget).find(".resource-item-one-value").text());
 			$(".console-generation-item-value").text($followersCount.toString());
 
+			// Info
 			let percentage = 0;
+			let count = 0,
+				addition
+
+			if ($followersCount === 1000) {
+				addition = 3;
+			} else if ($followersCount === 2500) {
+				addition = 8;
+			} else {
+				addition = 17;
+			}
+
 			const text2 = `<div class="console-msg animated bounceIn">Generating <span class="console-msg-resource">${$followersCount}</span> Followers</div>`;
 			const text3 = `<div class="console-msg animated bounceIn"><span class="console-msg-completed">Succesfully Generated</span></div>`;
 			const text4 = `<div class="console-msg animated bounceIn">Finalizing Generation...</div>`;
 			const text5 = `<div class="console-msg animated bounceIn">Performing Verification...</div>`;
 			const text6 = `<div class="console-msg animated bounceIn"><span class="console-msg-failed">Automatic Verification Failed</span></div>`;
 			const text7 = `<div class="console-msg animated bounceIn">Please Verify Manually</div>`;
+
+			const change2 = () => $("#final-processes .console-msg-wrapper.final").html(text2);
 
 			$(".resource-select-item-one").eq(0).addClass("animated fadeOutDown");
 			setTimeout(() => $(".resource-select-item-one").eq(1).addClass("animated fadeOutDown"), 100);
@@ -353,104 +367,77 @@
 				$(".mfp-bg, #final-processes, #generic").show();
 			}, 300);
 
+			// Loading Info
+			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text2), 2000);
+			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text3), 7000);
+			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text4), 9000);
+			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text5), 12000);
+
 			// Start Loading
 			const progress = () => {
-				if (percentage <= 100) requestAnimationFrame(progress);
+				if (percentage < 100) requestAnimationFrame(progress);
 
-				if (percentage >= 100) {
-					$("#connected-user").hide();
-					$("#connected-user").fadeIn();
-					$("#connected-user .connected-username-value").text(username);
+				if (percentage >= 12 && percentage < 42) {
+					// Count Audio Play
+					countAudio.pause();
+					countAudio.currentTime = 0;
+					countAudio.play();
+
+					$("#generic").hide();
+					$("#step-2").fadeIn(100);
+
+					$("#step-2 .console-generation-item-value").text(count);
+					count += addition
+				} else if (percentage >= 42 && percentage < 54) {
+					// Count Audio Stop
+					countAudio.pause();
+					countAudio.currentTime = 0;
+					// Transition 1 Audio Play
+					transition1Audio.pause();
+					transition1Audio.currentTime = 0;
+					transition1Audio.play();
+
+					$("#step-2").hide();
+					$("#step-3").show();
+				} else if (percentage >= 54 && percentage < 72) {
+					$("#step-3").hide();
+					$("#generic").show();
+				} else if (percentage >= 72 && percentage < 95) {
+				} else if (percentage >= 95) {
+					percentage = 100;
+
+					// Fail Audio Play
+					failAudio.pause();
+					failAudio.currentTime = 0;
+					failAudio.play();
+					
+					$("#generic").hide();
+					$("#step-5").show();
+					$("#final-processes .console-msg-wrapper.final").html(text6);
+
 					setTimeout(() => {
-						// Fail Audio Play
-						failAudio.pause();
-						failAudio.currentTime = 0;
-						failAudio.play();
-						
-						$("#generic").hide();
-						$("#step-5").show();
-						$("#final-processes .console-msg-wrapper.final").html(text6);
-
+						$("#step-5").hide();
+						$("#step-6").show();
+						$("#final-processes .console-msg-wrapper.final").html(text7);
 						setTimeout(() => {
-							$("#step-5").hide();
-							$("#step-6").show();
-							$("#final-processes .console-msg-wrapper.final").html(text7);
-
-							setTimeout(() => {
 								// Transition 2 Audio Play
 								transition2Audio.pause();
 								transition2Audio.currentTime = 0;
 								transition2Audio.play();
-
+						
 								$("#second-loading").hide();
 								$("#human-verification").fadeIn(100);
 								timer();
 							}, 2000);
-						}, 2000);
-					}, 200);
-					clearInterval(progress);
+					}, 2000);
 				}
+
 				$("#progressBarFinal div").css("width", percentage + "%");
 				percentage += 0.1;
 			}
 
 			requestAnimationFrame(progress);
 
-			// Info
-			let count = 0,
-				addition
-				// time = 1;
-
-			if ($followersCount === 1000) {
-				addition = 3;
-			} else if ($followersCount === 2500) {
-				addition = 7;
-			} else {
-				addition = 14;
-			}
-
-			setTimeout(() => {
-				// Count Audio Play
-				countAudio.pause();
-				countAudio.currentTime = 0;
-				countAudio.play();
-
-				$("#generic").hide();
-				$("#step-2").fadeIn(100);
-				const counter = () => {
-					if (count < $followersCount) requestAnimationFrame(counter);
-
-					// Transition 1 Audio Play
-					transition1Audio.pause();
-					transition1Audio.currentTime = 0;
-					transition1Audio.play();
-					
-					if (count >= $followersCount) {
-						// Count Audio Stop
-						countAudio.pause();
-						countAudio.currentTime = 0;
-
-						$("#step-2").hide();
-						$("#step-3").show();
-						$("#final-processes .console-msg-wrapper.final").html(text3);
-						clearInterval(counter);
-
-						setTimeout(() => {
-							$("#step-3").hide();
-							$("#generic").show();
-							$("#final-processes .console-msg-wrapper.final").html(text4);
-
-							setTimeout(() => {
-								$("#final-processes .console-msg-wrapper.final").html(text5);
-							}, 2000);
-						}, 2000);
-					}
-					$("#step-2 .console-generation-item-value").text(count);
-					count += addition
-				};
-				requestAnimationFrame(counter);
-				$("#final-processes .console-msg-wrapper.final").html(text2);
-			}, 2500)
 		})
 
 		// Timer Count Down
