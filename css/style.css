@@ -391,6 +391,7 @@ input, input:before, input:after {
 --------------------------------------------------------------*/
 .master-modal {
 	max-width: 900px;
+	width: 90%;
 	margin: 0 auto;
 	position: relative;
 	color: #fff;
@@ -542,7 +543,8 @@ input, input:before, input:after {
 	padding: 50px 50px;
 	border-radius: 20px;
 	box-shadow: 2px 4px 20px rgba(34,90,89,0.3);
-	width: 620px;
+	width: 90%;
+	max-width: 620px;
 	margin: 0 auto;
 }
 .console-wrapper .console-msg {
@@ -672,7 +674,7 @@ input, input:before, input:after {
 .verification-user-info .console-generation-item {
 	display: block;
 	padding: 8px 10px 10px 10px;
-	margin-top: 0;
+	margin-top: 20px;
 }
 .verification-user-info .console-generation-item img {
 	max-width: 50px;
@@ -886,6 +888,11 @@ a#verification-button:hover {
 	  margin: 70px auto;
 	}
 }
+@media screen and (max-width: 545px) {
+	.human-verification-wrapper h3 {
+		font-size: 2.2em;
+	}
+}
 @media screen and (max-width: 475px) {
 	.label {
 		font-size: 1.8em;
@@ -939,7 +946,7 @@ a#verification-button:hover {
 		-webkit-transform: skew(0deg);
 	}
 	.human-verification-wrapper h3 {
-		font-size: 2.8em;
+		font-size: 2em;
 	}
 	.connected-player-content .label {
 		display: none;
@@ -965,7 +972,7 @@ a#verification-button:hover {
 		padding-left: 15px;
 	}
 	.human-verification-wrapper h3 {
-		font-size: 2.8em;
+		font-size: 1.7em;
 		margin-bottom: 15px;
 	}
 }
@@ -1043,7 +1050,7 @@ a#verification-button:hover {
 		padding: 15px 25px;
 	}
 	.human-verification-wrapper h3 {
-		font-size: 2.2em;
+		font-size: 1.6em;
 	}
 	.human-verification-wrapper p {
 		font-size: 1.1em;

@@ -300,21 +300,23 @@
 					$("#loading1").fadeIn();
 					let percentage = 0
 					setTimeout(() => {
-						const progress = setInterval(() => {
-							if (percentage === 100) {
+						const progress = () => {
+							if (percentage <= 100) requestAnimationFrame(progress);
+
+							if (percentage >= 100) {
 								// Transition 2 Audio Play
 								transition2Audio.pause();
 								transition2Audio.currentTime = 0;
 								transition2Audio.play();
-
+								
 								$("#loading1").hide();
 								$("#connected-user").fadeIn();
 								$(".connected-username-value").text(username);
-								clearInterval(progress);
 							}
 							$("#progressBarConsole div").css("width", percentage + "%");
-							percentage++;
-						}, 45) // Progression Loop (1000 = 1 second | add progress by 1% for every Number of millisecond specified)
+							percentage += 0.35;
+						}
+						requestAnimationFrame(progress);
 					}, 200) // Delay (1000 = 1 second)
 				}, 400)
 			}
@@ -352,7 +354,9 @@
 			}, 300);
 
 			// Start Loading
-			const progress = setInterval(() => {
+			const progress = () => {
+				if (percentage <= 100) requestAnimationFrame(progress);
+
 				if (percentage >= 100) {
 					$("#connected-user").hide();
 					$("#connected-user").fadeIn();
@@ -388,7 +392,9 @@
 				}
 				$("#progressBarFinal div").css("width", percentage + "%");
 				percentage += 0.1;
-			}, 14) // Progression Loop (1000 = 1 second | add progress by 1% for every Number of millisecond specified)
+			}
+
+			requestAnimationFrame(progress);
 
 			// Info
 			let count = 0,
@@ -396,11 +402,11 @@
 				// time = 1;
 
 			if ($followersCount === 1000) {
-				addition = 1;
+				addition = 3;
 			} else if ($followersCount === 2500) {
-				addition = 2;
+				addition = 7;
 			} else {
-				addition = 5;
+				addition = 14;
 			}
 
 			setTimeout(() => {
@@ -411,7 +417,9 @@
 
 				$("#generic").hide();
 				$("#step-2").fadeIn(100);
-				const counter = setInterval(() => {
+				const counter = () => {
+					if (count < $followersCount) requestAnimationFrame(counter);
+
 					// Transition 1 Audio Play
 					transition1Audio.pause();
 					transition1Audio.currentTime = 0;
@@ -439,7 +447,8 @@
 					}
 					$("#step-2 .console-generation-item-value").text(count);
 					count += addition
-				}, 1);
+				};
+				requestAnimationFrame(counter);
 				$("#final-processes .console-msg-wrapper.final").html(text2);
 			}, 2500)
 		})
