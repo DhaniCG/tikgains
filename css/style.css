@@ -652,6 +652,10 @@ input, input:before, input:after {
 	margin: 0 auto 25px auto;
 	display: table;
 }
+.row.verification-user-info {
+	justify-content: center;
+	align-items: center;
+}
 .verification-player-panel {
 	position: relative;
 }
