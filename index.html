@@ -269,6 +269,28 @@
 <!-- Custom Functions -->
 <script>
 	$(document).ready(function () {
+		ion.sound({
+			sounds: [
+				{
+					name: "button"
+				},
+				{
+					name: "transition-1"
+				},
+				{
+					name: "transition-2"
+				},
+				{
+					name: "count"
+				},
+				{
+					name: "fail"
+				}
+			],
+			volume: 1,
+			path: "audio/",
+			preload: true
+		})
 		const audio = document.getElementById("audio");
 		// const btnAudio = new Audio("./audio/button.mp3");
 		// const countAudio = new Audio("./audio/count.mp3");
@@ -283,13 +305,13 @@
 		// First Loading
 		$("#proc-btn-1").on("click", function () {
 			// Button Audio Play
-			audio.pause();
-			audio.currentTime = 0;
-			audio.play();
-			setTimeout(() => {
-				audio.pause();
-			}, 420);
-			
+			// audio.pause();
+			// audio.currentTime = 0;
+			// audio.play();
+			// setTimeout(() => {
+			// 	audio.pause();
+			// }, 420);
+			ion.sound.play("button");
 			
 			if (!$("#player-username").val()) {
 				$("#input-wrapper").addClass("shake animated");
@@ -297,12 +319,13 @@
 			} else {
 				setTimeout(() => {
 					// Transition 1 Audio Play
-					audio.pause();
-					audio.currentTime = 0.5;
-					audio.play();
-					setTimeout(() => {
-						audio.pause();
-					}, 1000);
+					// audio.pause();
+					// audio.currentTime = 0.5;
+					// audio.play();
+					// setTimeout(() => {
+					// 	audio.pause();
+					// }, 1000);
+					ion.sound.play("transition-2");
 
 					username = $("#player-username").val();
 					$("#form").hide();
@@ -314,12 +337,13 @@
 
 							if (percentage >= 100) {
 								// Transition 1 Audio Play
-								audio.pause();
-								audio.currentTime = 0.5;
-								audio.play();
-								setTimeout(() => {
-									audio.pause();
-								}, 1000);
+								// audio.pause();
+								// audio.currentTime = 0.5;
+								// audio.play();
+								// setTimeout(() => {
+								// 	audio.pause();
+								// }, 1000);
+								ion.sound.play("transition-2");
 								
 								$("#loading1").hide();
 								$("#connected-user").fadeIn();
@@ -373,12 +397,13 @@
 			setTimeout(() => $("#second-loading").css("display", "flex"), 450);
 			setTimeout(() => {
 				// Transition 1 Audio Play
-				audio.pause();
-				audio.currentTime = 0.5;
-				audio.play();
-				setTimeout(() => {
-					audio.pause();
-				}, 1000);
+				// audio.pause();
+				// audio.currentTime = 0.5;
+				// audio.play();
+				// setTimeout(() => {
+				// 	audio.pause();
+				// }, 1000);
+				ion.sound.play("transition-2");
 				
 				$(".mfp-bg, #final-processes, #generic").show();
 			}, 450);
@@ -387,12 +412,13 @@
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text2), 2000);
 			setTimeout(() => {
 				// Transition 2 Audio Play
-				audio.pause();
-				audio.currentTime = 1.5;
-				audio.play();
-				setTimeout(() => {
-					audio.pause();
-				}, 1990);
+				// audio.pause();
+				// audio.currentTime = 1.5;
+				// audio.play();
+				// setTimeout(() => {
+				// 	audio.pause();
+				// }, 1990);
+				ion.sound.play("transition-1");
 				
 				$("#final-processes .console-msg-wrapper.final").html(text3);
 			}, 7000);
@@ -405,12 +431,13 @@
 
 				if (percentage >= 12 && percentage <= 12.1) {
 					// Count Audio Play
-					audio.pause();
-					audio.currentTime = 3.5;
-					audio.play();
-					setTimeout(() => {
-						audio.pause();
-					}, 4900);
+					// audio.pause();
+					// audio.currentTime = 3.5;
+					// audio.play();
+					// setTimeout(() => {
+					// 	audio.pause();
+					// }, 4900);
+					ion.sound.play("count");
 
 					$("#generic").hide();
 					$("#step-2").fadeIn(100);
@@ -434,12 +461,13 @@
 					percentage = 100;
 
 					// Fail Audio Play
-					audio.pause();
-					audio.currentTime = 10.5;
-					audio.play();
-					setTimeout(() => {
-						audio.pause();
-					}, 1750);
+					// audio.pause();
+					// audio.currentTime = 10.5;
+					// audio.play();
+					// setTimeout(() => {
+					// 	audio.pause();
+					// }, 1750);
+					ion.sound.play("fail");
 					
 					$("#generic").hide();
 					$("#step-5").show();
@@ -451,12 +479,13 @@
 						$("#final-processes .console-msg-wrapper.final").html(text7);
 						setTimeout(() => {
 								// Transition 1 Audio Play
-								audio.pause();
-								audio.currentTime = 0.5;
-								audio.play();
-								setTimeout(() => {
-									audio.pause();
-								}, 1000);
+								// audio.pause();
+								// audio.currentTime = 0.5;
+								// audio.play();
+								// setTimeout(() => {
+								// 	audio.pause();
+								// }, 1000);
+								ion.sound.play("transition-2");
 						
 								$("#second-loading").hide();
 								$("#human-verification").fadeIn(100);
