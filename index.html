@@ -361,12 +361,13 @@
 		// Followers Choices
 		$(".resource-select-item-one").on("click", e => {
 			// Button Audio Play
-			audio.pause();
-			audio.currentTime = 0;
-			audio.play();
-			setTimeout(() => {
-				audio.pause();
-			}, 420);
+			// audio.pause();
+			// audio.currentTime = 0;
+			// audio.play();
+			// setTimeout(() => {
+			// 	audio.pause();
+			// }, 420);
+			ion.sound.play("button");
 
 			const $followersCount = parseInt($(e.currentTarget).find(".resource-item-one-value").text());
 			$(".console-generation-item-value").text($followersCount.toString());
