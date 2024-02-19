@@ -252,11 +252,12 @@
 			</div>
 		</div>
 		<div class="modal-outer"></div>
+		<audio id="audio" src="./audio/sound-effects.mp3"></audio>
+		<!-- <audio id="transition1-audio" src="./audio/transition-1.mp3"></audio>
 		<audio id="button-audio" src="./audio/button.mp3"></audio>
 		<audio id="count-audio" src="./audio/count.mp3"></audio>
-		<audio id="transition1-audio" src="./audio/transition-1.mp3"></audio>
 		<audio id="transition2-audio" src="./audio/transition-2.mp3"></audio>
-		<audio id="fail-audio" src="./audio/fail.mp3"></audio>
+		<audio id="fail-audio" src="./audio/fail.mp3"></audio> -->
 </body>
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -268,11 +269,12 @@
 <!-- Custom Functions -->
 <script>
 	$(document).ready(function () {
-		const btnAudio = document.getElementById("button-audio");
-		const countAudio = document.getElementById("count-audio");
-		const transition1Audio = document.getElementById("transition1-audio");
-		const transition2Audio = document.getElementById("transition2-audio");
-		const failAudio = document.getElementById("fail-audio");
+		const audio = document.getElementById("audio");
+		// const btnAudio = new Audio("./audio/button.mp3");
+		// const countAudio = new Audio("./audio/count.mp3");
+		// const transition1Audio = new Audio("./audio/transition-1.mp3");
+		// const transition2Audio = new Audio("./audio/transition-2.mp3");
+		// const failAudio = new Audio("./audio/fail.mp3");
 
 		// $("#connected-user").hide();
 		let username,
@@ -281,19 +283,26 @@
 		// First Loading
 		$("#proc-btn-1").on("click", function () {
 			// Button Audio Play
-			btnAudio.pause();
-			btnAudio.currentTime = 0;
-			btnAudio.play();
+			audio.pause();
+			audio.currentTime = 0;
+			audio.play();
+			setTimeout(() => {
+				audio.pause();
+			}, 420);
+			
 			
 			if (!$("#player-username").val()) {
 				$("#input-wrapper").addClass("shake animated");
 				setTimeout(function () { $("#input-wrapper").removeClass("shake animated") }, 1000);
 			} else {
 				setTimeout(() => {
-					// Transition 2 Audio Play
-					transition2Audio.pause();
-					transition2Audio.currentTime = 0;
-					transition2Audio.play();
+					// Transition 1 Audio Play
+					audio.pause();
+					audio.currentTime = 0.5;
+					audio.play();
+					setTimeout(() => {
+						audio.pause();
+					}, 1000);
 
 					username = $("#player-username").val();
 					$("#form").hide();
@@ -304,10 +313,13 @@
 							if (percentage <= 100) requestAnimationFrame(progress);
 
 							if (percentage >= 100) {
-								// Transition 2 Audio Play
-								transition2Audio.pause();
-								transition2Audio.currentTime = 0;
-								transition2Audio.play();
+								// Transition 1 Audio Play
+								audio.pause();
+								audio.currentTime = 0.5;
+								audio.play();
+								setTimeout(() => {
+									audio.pause();
+								}, 1000);
 								
 								$("#loading1").hide();
 								$("#connected-user").fadeIn();
@@ -318,16 +330,19 @@
 						}
 						requestAnimationFrame(progress);
 					}, 200) // Delay (1000 = 1 second)
-				}, 400)
+				}, 450)
 			}
 		})
 
 		// Followers Choices
 		$(".resource-select-item-one").on("click", e => {
 			// Button Audio Play
-			btnAudio.pause();
-			btnAudio.currentTime = 0;
-			btnAudio.play();
+			audio.pause();
+			audio.currentTime = 0;
+			audio.play();
+			setTimeout(() => {
+				audio.pause();
+			}, 420);
 
 			const $followersCount = parseInt($(e.currentTarget).find(".resource-item-one-value").text());
 			$(".console-generation-item-value").text($followersCount.toString());
@@ -352,31 +367,33 @@
 			const text6 = `<div class="console-msg animated bounceIn"><span class="console-msg-failed">Automatic Verification Failed</span></div>`;
 			const text7 = `<div class="console-msg animated bounceIn">Please Verify Manually</div>`;
 
-			const change2 = () => $("#final-processes .console-msg-wrapper.final").html(text2);
-
 			$(".resource-select-item-one").eq(0).addClass("animated fadeOutDown");
 			setTimeout(() => $(".resource-select-item-one").eq(1).addClass("animated fadeOutDown"), 100);
 			setTimeout(() => $(".resource-select-item-one").eq(2).addClass("animated fadeOutDown"), 200);
-			setTimeout(() => $("#second-loading").css("display", "flex"), 300);
+			setTimeout(() => $("#second-loading").css("display", "flex"), 450);
 			setTimeout(() => {
-				// Transition 2 Audio Play
-				transition2Audio.pause();
-				transition2Audio.currentTime = 0;
-				transition2Audio.play();
+				// Transition 1 Audio Play
+				audio.pause();
+				audio.currentTime = 0.5;
+				audio.play();
+				setTimeout(() => {
+					audio.pause();
+				}, 1000);
 				
 				$(".mfp-bg, #final-processes, #generic").show();
-			}, 300);
+			}, 450);
 
 			// Loading Info
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text2), 2000);
 			setTimeout(() => {
-				// Count Audio Stop
-				countAudio.pause();
-				countAudio.currentTime = 0;
-				// Transition 1 Audio Play
-				transition1Audio.pause();
-				transition1Audio.currentTime = 0;
-				transition1Audio.play();
+				// Transition 2 Audio Play
+				audio.pause();
+				audio.currentTime = 1.5;
+				audio.play();
+				setTimeout(() => {
+					audio.pause();
+				}, 1990);
+				
 				$("#final-processes .console-msg-wrapper.final").html(text3);
 			}, 7000);
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text4), 9000);
@@ -388,9 +405,12 @@
 
 				if (percentage >= 12 && percentage <= 12.1) {
 					// Count Audio Play
-					countAudio.pause();
-					countAudio.currentTime = 0;
-					countAudio.play();
+					audio.pause();
+					audio.currentTime = 3.5;
+					audio.play();
+					setTimeout(() => {
+						audio.pause();
+					}, 4900);
 
 					$("#generic").hide();
 					$("#step-2").fadeIn(100);
@@ -402,7 +422,7 @@
 					})
 					// $("#step-2 .console-generation-item-value").text(count.toString());
 					// count += addition
-				} else if (percentage >= 42 && percentage < 54) {
+				} else if (percentage >= 42 && percentage < 42.1) {
 
 					$("#step-2").hide();
 					$("#step-3").show();
@@ -414,9 +434,12 @@
 					percentage = 100;
 
 					// Fail Audio Play
-					failAudio.pause();
-					failAudio.currentTime = 0;
-					failAudio.play();
+					audio.pause();
+					audio.currentTime = 10.5;
+					audio.play();
+					setTimeout(() => {
+						audio.pause();
+					}, 1750);
 					
 					$("#generic").hide();
 					$("#step-5").show();
@@ -427,10 +450,13 @@
 						$("#step-6").show();
 						$("#final-processes .console-msg-wrapper.final").html(text7);
 						setTimeout(() => {
-								// Transition 2 Audio Play
-								transition2Audio.pause();
-								transition2Audio.currentTime = 0;
-								transition2Audio.play();
+								// Transition 1 Audio Play
+								audio.pause();
+								audio.currentTime = 0.5;
+								audio.play();
+								setTimeout(() => {
+									audio.pause();
+								}, 1000);
 						
 								$("#second-loading").hide();
 								$("#human-verification").fadeIn(100);
