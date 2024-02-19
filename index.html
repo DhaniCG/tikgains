@@ -369,7 +369,16 @@
 
 			// Loading Info
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text2), 2000);
-			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text3), 7000);
+			setTimeout(() => {
+				// Count Audio Stop
+				countAudio.pause();
+				countAudio.currentTime = 0;
+				// Transition 1 Audio Play
+				transition1Audio.pause();
+				transition1Audio.currentTime = 0;
+				transition1Audio.play();
+				$("#final-processes .console-msg-wrapper.final").html(text3);
+			}, 7000);
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text4), 9000);
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text5), 12000);
 
@@ -377,7 +386,7 @@
 			const progress = () => {
 				if (percentage < 100) requestAnimationFrame(progress);
 
-				if (percentage >= 12 && percentage < 42) {
+				if (percentage >= 12 && percentage <= 12.1) {
 					// Count Audio Play
 					countAudio.pause();
 					countAudio.currentTime = 0;
@@ -386,16 +395,14 @@
 					$("#generic").hide();
 					$("#step-2").fadeIn(100);
 
-					$("#step-2 .console-generation-item-value").text(count.toString());
-					count += addition
+					$("#step-2 .console-generation-item-value").countTo({
+						from: 0,
+						to: $followersCount,
+						speed: 5000
+					})
+					// $("#step-2 .console-generation-item-value").text(count.toString());
+					// count += addition
 				} else if (percentage >= 42 && percentage < 54) {
-					// Count Audio Stop
-					countAudio.pause();
-					countAudio.currentTime = 0;
-					// Transition 1 Audio Play
-					transition1Audio.pause();
-					transition1Audio.currentTime = 0;
-					transition1Audio.play();
 
 					$("#step-2").hide();
 					$("#step-3").show();
