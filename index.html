@@ -376,9 +376,8 @@
 				// Transition 1 Audio Play
 				transition1Audio.pause();
 				transition1Audio.currentTime = 0;
-				setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text3), 10);
 				transition1Audio.play();
-				
+				$("#final-processes .console-msg-wrapper.final").html(text3);
 			}, 7000);
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text4), 9000);
 			setTimeout(() => $("#final-processes .console-msg-wrapper.final").html(text5), 12000);
